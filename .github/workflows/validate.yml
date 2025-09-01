@@ -10,6 +10,7 @@ on:
       - 'alpha'
       - '!all-contributors/**'
   pull_request:
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -46,10 +47,10 @@ jobs:
   release:
     needs: main
     runs-on: ubuntu-latest
-    if:
-      ${{ github.repository == 'testing-library/cypress-testing-library' &&
-      contains('refs/heads/main,refs/heads/beta,refs/heads/next,refs/heads/alpha',
-      github.ref) && github.event_name == 'push' }}
+    # if:
+    #   ${{ github.repository == 'testing-library/cypress-testing-library' &&
+    #   contains('refs/heads/main,refs/heads/beta,refs/heads/next,refs/heads/alpha',
+    #   github.ref) && github.event_name == 'push' }}
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
@@ -71,6 +72,7 @@ jobs:
         uses: cycjimmy/semantic-release-action@v2
         with:
           semantic_version: 17
+          dry_run: true
           branches: |
             [
               '+([0-9])?(.{+([0-9]),x}).x',
