@@ -24,6 +24,7 @@ jobs:
       matrix:
         node: [20, 22, 24]
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
@@ -47,6 +48,7 @@ jobs:
   release:
     needs: main
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     # if:
     #   ${{ github.repository == 'testing-library/cypress-testing-library' &&
     #   contains('refs/heads/main,refs/heads/beta,refs/heads/next,refs/heads/alpha',
